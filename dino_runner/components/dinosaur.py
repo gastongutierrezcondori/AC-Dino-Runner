@@ -2,6 +2,7 @@ import pygame
 from pygame.sprite import Sprite
 from dino_runner.utils.constants import RUNNING, DUCKING, JUMPING
 
+
 class Dinosaur(Sprite):
 
     X_POS =80
@@ -44,7 +45,7 @@ class Dinosaur(Sprite):
             self.dino_jump = False
 
         if self.step_index >= 10:
-            self.step_intex = 0
+            self.step_index = 0
 
     def draw(self, screen):
         screen.blit(self.image,(self.dino_rect.x, self.dino_rect.y))
