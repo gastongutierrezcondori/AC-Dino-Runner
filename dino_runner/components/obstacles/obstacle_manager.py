@@ -29,13 +29,17 @@ class ObstacleManager:
 
             # acceder al dinosaurio
             if game.player.dino_rect.colliderect(obstacle.rect):
-                pygame.time.delay(500)
+                if not game.player.shield:
+
+                    pygame.time.delay(500)
                 # detener el siclo
-                game.playing = False
-                game.death_count +=1
-                game.previus_points = game.points
-                game.points = 0
-                break
+                    game.playing = False
+                    game.death_count +=1
+                    game.previus_points = game.points
+                    game.points = 0
+                    break
+                else:
+                    self.obstacles.remove(obstacle)
 
 
     def draw(self, screen):
