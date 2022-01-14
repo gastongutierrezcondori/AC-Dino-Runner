@@ -9,5 +9,3 @@ class Cactus(Obstacle):
         self.type = random.randint(0, 2)
         super().__init__(image, self.type) # es el init de la clase padre
         self.rect.y = 325
-
-

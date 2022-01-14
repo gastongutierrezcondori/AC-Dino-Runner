@@ -2,7 +2,6 @@ import random
 
 import pygame
 
-from dino_runner.components import game
 from dino_runner.components.obstacles.bird import Bird
 from dino_runner.components.obstacles.cactus import Cactus
 from dino_runner.utils.constants import SMALL_CACTUS, LARGE_CACTUS, BIRD
@@ -32,7 +31,10 @@ class ObstacleManager:
             if game.player.dino_rect.colliderect(obstacle.rect):
                 pygame.time.delay(500)
                 # detener el siclo
-                game.playing = False # porque deberia estar en false
+                game.playing = False
+                game.death_count +=1
+                game.previus_points = game.points
+                game.points = 0
                 break
 
 
@@ -40,4 +42,5 @@ class ObstacleManager:
         for obstacle in self.obstacles:
             obstacle.draw(screen)
 
-
+    def reset_obstacles(self):
+        self.obstacles = []
