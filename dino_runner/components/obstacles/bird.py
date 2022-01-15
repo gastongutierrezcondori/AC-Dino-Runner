@@ -2,6 +2,7 @@ import random
 
 from dino_runner.components.obstacles.obstacle import Obstacle
 
+
 class Bird(Obstacle):
     def __init__(self, image):
         self.type = 0

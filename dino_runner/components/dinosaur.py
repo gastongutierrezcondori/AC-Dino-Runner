@@ -1,20 +1,20 @@
 import pygame
 from pygame.sprite import Sprite
 from dino_runner.utils.constants import RUNNING, DUCKING, JUMPING, DEFAULT_TYPE, SHIELD_TYPE, DUCKING_SHIELD, \
-    JUMPING_SHIELD, RUNNING_SHIELD, HAMMER_TYPE
+    JUMPING_SHIELD, RUNNING_SHIELD, HAMMER_TYPE, JUMPING_HAMMER, RUNNING_HAMMER, DUCKING_HAMMER
+
 
 class Dinosaur(Sprite):
 
-    X_POS =80
+    X_POS = 80
     Y_POS = 310
     Y_POS_DUCK = 340
     JUMP_VEL = 10
 
     def __init__(self):
-        # diccionarios
-        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD}
-        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD}
-        self.jum_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD}
+        self.duck_img = {DEFAULT_TYPE: DUCKING, SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
+        self.run_img = {DEFAULT_TYPE: RUNNING, SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
+        self.jum_img = {DEFAULT_TYPE: JUMPING, SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
         self.type = DEFAULT_TYPE
 
         self.image = self.run_img[self.type][0]
@@ -35,6 +35,9 @@ class Dinosaur(Sprite):
         self.shield = False
         self.show_text = False
         self.shield_time_up = 0
+        self.hammer = False
+        self.hammer_time_up = 0
+        self.show_text1 = False
 
     def update(self, user_input):
         if self.dino_jump:
@@ -104,8 +107,22 @@ class Dinosaur(Sprite):
                 self.shield = False
                 self.update_to_default(SHIELD_TYPE)
 
+    def check_hammer(self, screen):
+        if self.hammer:
+            time_to_show = round((self.hammer_time_up - pygame.time.get_ticks()) / 100, 2)
 
+            if time_to_show >= 0:
+                if self.show_text:
 
+                    fond = pygame.font.Font('freesansbold.ttf', 18)
+                    text1 = fond.render(f'hammer enable for {time_to_show}' ,True, (0,0,0))
+
+                    text_rect = text1.get_rect()
+                    text_rect.center = (500, 20)
+                    screen.blit(text1, text_rect)
+            else:
+                self.hammer = False
+                self.update_to_default(HAMMER_TYPE)
 
     def update_to_default(self, current_type):
         if self.type == current_type:

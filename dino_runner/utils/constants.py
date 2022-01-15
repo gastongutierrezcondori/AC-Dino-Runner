@@ -72,3 +72,11 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
 HAMMER_TYPE = 'hammer'
+LIVES = 1
+LIST_LIVES = [700]
+
+POSITION_LIVE_SCREEN = 50
+
+MAX_LIVES = 5
+ADD_LIVES = 1
+
